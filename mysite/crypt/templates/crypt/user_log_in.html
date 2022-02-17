@@ -1,0 +1,20 @@
+<div id="mainMenuPanel">
+    {% include './top_menu.html' %}
+</div>
+
+{% if failed %}
+  <div>Logowanie się nie powiodło</div>
+{% endif %}
+
+<form action="{% url 'user_log_in_form' %}" method="post">
+  {% csrf_token %}
+    <div class="container">
+      <label for="uname"><b>Użytkownik</b></label>
+      <input type="text" name="uname" required>
+  
+      <label for="psw"><b>Hasło</b></label>
+      <input type="password" name="psw" required>
+  
+      <button type="submit">Zaloguj</button>
+    </div>
+</form> 

@@ -1,0 +1,18 @@
+<div id="mainMenuPanel">
+    {% include './top_menu.html' %}
+</div>
+
+
+<p>{{ coin_id }}</p>
+<p>Hura</p>
+
+
+{% if coins_data %}
+    <ul>
+    {% for data in coins_data %}
+        <li>{{ data.id }}, {{ data.coins }}, {{ data.date_time }}, {{ data.price }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Brak danych</p>
+{% endif %}

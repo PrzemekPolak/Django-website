@@ -1,0 +1,19 @@
+<div id="mainMenuPanel">
+    {% include './top_menu.html' %}
+</div> 
+
+
+{% if coins %}
+    <ul>
+    {% for coin in coins %}
+        <li><a href="/crypt/detail/{{ coin.coin_id }}/">{{ coin.coin_id }}, {{ coin.coin_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No coins are available.</p>
+{% endif %}
+
+
+
+
+<a class="btn" href="/crypt/update_db_button">Update db</a>

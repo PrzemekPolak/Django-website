@@ -1,0 +1,8 @@
+{% block top_menu %}
+<div style="background:black;color:white;display:flex">
+    <div style="margin:30;font-size: 24" onclick="location.href='/crypt/'">Strona Główna</div>
+    <div style="margin:30;font-size: 24">{{  request.user }}</div>
+    <div style="margin:30;font-size: 24" onclick="location.href='/crypt/user_log_in/'">Zaloguj się</div>
+    <div style="margin:30;font-size: 24" onclick="location.href='/crypt/user_log_out/'">Wyloguj się</div>
+</div>
+{% endblock %}
