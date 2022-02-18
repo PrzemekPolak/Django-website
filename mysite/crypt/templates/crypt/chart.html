@@ -1,6 +1,8 @@
 {% load static %}
 
-<canvas id="myChart" style="background-color:#29251a;"></canvas>
+<div class="chart-container" style="width:80%;margin-right:auto;margin-left:auto">
+    <canvas id="myChart" style="background-color:#29251a;"></canvas>
+</div>
 
 {{ chart_time|json_script:"chart_time_data" }}
 {{ chart_price|json_script:"chart_price_data" }}

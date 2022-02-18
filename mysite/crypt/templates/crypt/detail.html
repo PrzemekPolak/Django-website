@@ -4,7 +4,7 @@
 </div>
 
 
-{% if coins_daily_data %}
+{% if chart_time and chart_price %}
   <div id="chart_id">
     {% include './chart.html' %}
   </div>
@@ -13,7 +13,7 @@
 {% endif %}
 
 
-<p>Dane długie:</p>
+<!-- <p>Dane długie:</p>
 {% if coins_data %}
     <ul>
     {% for data in coins_data %}
@@ -22,4 +22,5 @@
     </ul>
 {% else %}
     <p>Brak danych</p>
-{% endif %}
+{% endif %} -->
+

@@ -27,7 +27,15 @@ class Coins_daily_data(models.Model):
     date_time = models.DateTimeField()
     price = models.IntegerField()
     def __str__(self):
-        return f'Date: {self.date}, {self.time}\nPrice: {self.price}'
+        return f'Date: {self.date_time}\nPrice: {self.price}'
+
+    def get_time(coin_id):
+        data = Coins_daily_data.objects.filter(coins=coin_id)
+        return map(lambda x: x.date_time.strftime("%H:%M:%S"), data)
+    
+    def get_price(coin_id):
+        data = Coins_daily_data.objects.filter(coins=coin_id)
+        return map(lambda x: x.price/10000, data)
 
 class User_asset(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

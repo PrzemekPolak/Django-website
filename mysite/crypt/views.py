@@ -15,15 +15,13 @@ class index(generic.ListView):
 
 def detail(request, coin_id):
     coins_data = Coins_data.objects.filter(coins=coin_id)
-    coins_daily_data = Coins_daily_data.objects.filter(coins=coin_id)
-    chart_time = list(Coins_daily_data.objects.values_list('date_time', flat=True).filter(coins=coin_id))
-    chart_price = list(Coins_daily_data.objects.values_list('price', flat=True).filter(coins=coin_id))
+    chart_time = list(Coins_daily_data.get_time(coin_id))
+    chart_price = list(Coins_daily_data.get_price(coin_id))
     return render(request, 'crypt/detail.html', 
     {'coin_id': coin_id,
     'coins_data': coins_data,
-    'coins_daily_data': coins_daily_data,
     'chart_time': chart_time,
-    'chart_price': chart_price})
+    'chart_price': chart_price,})
 
 def user_log_in(request, failed=False):
     return render(request, 'crypt/user_log_in.html', {'failed': failed})
