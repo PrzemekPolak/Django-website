@@ -1,12 +1,19 @@
+
 <div id="mainMenuPanel">
     {% include './top_menu.html' %}
 </div>
 
 
-<p>{{ coin_id }}</p>
-<p>Hura</p>
+{% if coins_daily_data %}
+  <div id="chart_id">
+    {% include './chart.html' %}
+  </div>
+{% else %}
+  <p>Brak danych</p>
+{% endif %}
 
 
+<p>Dane długie:</p>
 {% if coins_data %}
     <ul>
     {% for data in coins_data %}

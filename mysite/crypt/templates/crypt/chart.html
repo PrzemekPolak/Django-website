@@ -1,0 +1,9 @@
+{% load static %}
+
+<canvas id="myChart" style="background-color:#29251a;"></canvas>
+
+{{ chart_time|json_script:"chart_time_data" }}
+{{ chart_price|json_script:"chart_price_data" }}
+{{ coin_id|json_script:"chart_id_data" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'crypt/js/make_chart.js' %}"></script>
