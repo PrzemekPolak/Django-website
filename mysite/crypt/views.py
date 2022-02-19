@@ -15,8 +15,8 @@ class index(generic.ListView):
 
 def detail(request, coin_id):
     coins_data = Coins_data.objects.filter(coins=coin_id)
-    chart_time = list(Coins_daily_data.get_time(coin_id))
-    chart_price = list(Coins_daily_data.get_price(coin_id))
+    chart_time = Coins_daily_data.get_time(coin_id, 8)
+    chart_price = Coins_daily_data.get_price(coin_id, 8)
     return render(request, 'crypt/detail.html', 
     {'coin_id': coin_id,
     'coins_data': coins_data,
