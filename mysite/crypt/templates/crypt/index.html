@@ -6,7 +6,7 @@
 {% if coins %}
     <ul>
     {% for coin in coins %}
-        <li><a href="/crypt/detail/{{ coin.coin_id }}/">{{ coin.coin_id }}, {{ coin.coin_name }}</a></li>
+        <li><a href="/crypt/detail/{{ coin.coin_id }}/8">{{ coin.coin_id }}, {{ coin.coin_name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

@@ -13,13 +13,19 @@ class index(generic.ListView):
     def get_queryset(self):
         return Coin.objects.all()
 
-def detail(request, coin_id):
-    coins_data = Coins_data.objects.filter(coins=coin_id)
-    chart_time = Coins_daily_data.get_time(coin_id, 8)
-    chart_price = Coins_daily_data.get_price(coin_id, 8)
+def detail(request, coin_id, time_range):
+    chart_time = Coins_daily_data.get_time(coin_id, time_range)
+    chart_price = Coins_daily_data.get_price(coin_id, time_range)
     return render(request, 'crypt/detail.html', 
     {'coin_id': coin_id,
-    'coins_data': coins_data,
+    'chart_time': chart_time,
+    'chart_price': chart_price,})
+
+def detail_old(request, coin_id, time_range):
+    chart_time = Coins_data.get_time(coin_id, time_range)
+    chart_price = Coins_data.get_price(coin_id, time_range)
+    return render(request, 'crypt/detail.html', 
+    {'coin_id': coin_id,
     'chart_time': chart_time,
     'chart_price': chart_price,})
 

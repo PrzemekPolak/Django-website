@@ -12,15 +12,14 @@
   <p>Brak danych</p>
 {% endif %}
 
-
-<!-- <p>Dane długie:</p>
-{% if coins_data %}
-    <ul>
-    {% for data in coins_data %}
-        <li>{{ data.id }}, {{ data.coins }}, {{ data.date_time }}, {{ data.price }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Brak danych</p>
-{% endif %} -->
-
+  <div style="display:flex;">
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/2'">Ostatnie 2 godziny</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/4'">Ostatnie 4 godziny</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/8'">Ostatnie 8 godziny</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/12'">Ostatnie 12 godziny</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/24'">Ostatnie 24 godziny</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/7'">Ostatni tydzień</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/30'">Ostatni miesiąc</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/90'">Ostatnie 3 miesiące</div>
+    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/180'">Ostatnie 6 miesięcy</div>
+  </div>

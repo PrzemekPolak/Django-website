@@ -8,8 +8,8 @@ urlpatterns = [
     path('user_log_in_form/', views.user_log_in_form, name='user_log_in_form'),
     path('login_failed/', views.login_failed, name='login_failed'),
     path('user_log_out/', views.user_log_out, name='user_log_out'),
-    # Musi być na końcu bo inaczej bierze pod uwagę każdy inny string
-    path('detail/<str:coin_id>/', views.detail, name='detail'),
+    path('detail/<str:coin_id>/<int:time_range>', views.detail, name='detail'),
+    path('detail/old/<str:coin_id>/<int:time_range>', views.detail_old, name='detail_old'),
     
 
 

@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.conf import settings
+from .utils import *
 
 
 class User_additional_data(models.Model):
@@ -19,28 +20,35 @@ class Coins_data(models.Model):
     coins = models.ForeignKey(Coin, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
     price = models.IntegerField()
-    def __str__(self):
-        return f'Date: {self.date}\nPrice: {self.price}'
+
+    def get_data_from_x_days_ago(coin_id, last_x_days):
+        current_datetime = datetime.now()
+        # na potrzeby testowania narzucona data
+        current_datetime = current_datetime.replace(year=2022, month=2, day=18)
+        # -------------------------------------
+        previous_datetime = current_datetime - timedelta(days=last_x_days)
+        
+        return Coins_data.objects.filter(coins=coin_id,
+                                        date_time__lte=(current_datetime),
+                                        date_time__gte=(previous_datetime))
+
+    def get_time(coin_id, last_x_days):
+        data = Coins_data.get_data_from_x_days_ago(coin_id, last_x_days)
+        return list(map(lambda x: x.date_time.strftime("%Y:%m:%d"), data))
+
+    def get_price(coin_id, last_x_days):
+        data = Coins_data.get_data_from_x_days_ago(coin_id, last_x_days)
+        return list(map(lambda x: x.price/10000, data))
 
 class Coins_daily_data(models.Model):
     coins = models.ForeignKey(Coin, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
     price = models.IntegerField()
-    def __str__(self):
-        return f'Date: {self.date_time}\nPrice: {self.price}'
-
     
     def get_data_from_x_hours_ago(coin_id, last_x_hours):
-        def date_set_format(date_time):
-            date = date_time.date()
-            hour = date_time.hour
-            minute = date_time.minute
-            second = date_time.second
-            return f'{date} {hour}:{minute}:{second}'
-        
         current_datetime = datetime.now()
         # na potrzeby testowania narzucona data
-        current_datetime = current_datetime.replace(year=2022, month=2, day=15)
+        current_datetime = current_datetime.replace(year=2022, month=2, day=18)
         # -------------------------------------
         c_time = date_set_format(current_datetime)
 
