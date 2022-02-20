@@ -134,3 +134,9 @@ body {
     margin-right: auto;
     margin-left: auto;
 }
+
+
+.btn_upd {
+    font-size: 35;
+    color: red;
+}

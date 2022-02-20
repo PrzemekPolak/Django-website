@@ -32,4 +32,6 @@
     </div>
 </div>
 
-<a class="btn" href="/crypt/update_db_button">Update db</a>
+{% if not current_price %}
+    <a class="btn_upd" href="/crypt/update_db_button">Naciśnij aby wprowadzić przykładowe dane do bazy danych (chwilę zajmie)</a>
+{% endif %}

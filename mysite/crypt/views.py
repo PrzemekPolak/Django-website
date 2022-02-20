@@ -40,9 +40,7 @@ def user_log_in_form(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        # roboczo
         return redirect('/crypt/')
-
     else:
         return redirect('/crypt/login_failed')
 
@@ -57,9 +55,6 @@ def user_log_out(request):
 
 
 
-
-
-
 def update_db_button(request):
-    #import load_to_db
+    import load_to_db
     return redirect('/crypt/')
