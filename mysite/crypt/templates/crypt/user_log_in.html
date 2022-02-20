@@ -1,20 +1,30 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'crypt/css/style.css' %}">
+
 <div id="mainMenuPanel">
     {% include './top_menu.html' %}
 </div>
 
-{% if failed %}
-  <div>Logowanie się nie powiodło</div>
-{% endif %}
+<div class="userlog_container">
 
-<form action="{% url 'user_log_in_form' %}" method="post">
-  {% csrf_token %}
-    <div class="container">
-      <label for="uname"><b>Użytkownik</b></label>
-      <input type="text" name="uname" required>
-  
-      <label for="psw"><b>Hasło</b></label>
-      <input type="password" name="psw" required>
-  
-      <button type="submit">Zaloguj</button>
+  <div>Logowanie (Przykładowy: login:Przemek h:przemyslaw)</div>
+
+  <form action="{% url 'user_log_in_form' %}" method="post" class="userlog_login_container">
+    {% csrf_token %}
+    <div class="userlog_login_fields">
+      <div class="userlog_login_text">
+        <label class="userlog_login_el_txt" for="uname">Użytkownik:</label>
+        <label class="userlog_login_el_txt" for="psw">Hasło:</label>
+      </div>
+      <div class="userlog_login_text">
+        <input class="userlog_login_el_inp" type="text" name="uname" required>
+        <input class="userlog_login_el_inp" type="password" name="psw" required>
+      </div>
     </div>
-</form> 
+        <button class="userlog_login_el_but" type="submit">Zaloguj się</button>
+  </form>
+
+  {% if failed %}
+    <div>Logowanie się nie powiodło</div>
+  {% endif %}
+</div>

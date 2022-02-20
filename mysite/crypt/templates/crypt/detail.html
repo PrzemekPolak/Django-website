@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'crypt/css/style.css' %}">
 
 <div id="mainMenuPanel">
     {% include './top_menu.html' %}
@@ -13,13 +15,13 @@
 {% endif %}
 
   <div style="display:flex;">
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/2'">Ostatnie 2 godziny</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/4'">Ostatnie 4 godziny</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/8'">Ostatnie 8 godziny</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/12'">Ostatnie 12 godziny</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/{{ coin_id }}/24'">Ostatnie 24 godziny</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/7'">Ostatni tydzień</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/30'">Ostatni miesiąc</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/90'">Ostatnie 3 miesiące</div>
-    <div style="margin:30;font-size: 20" onclick="location.href='/crypt/detail/old/{{ coin_id }}/180'">Ostatnie 6 miesięcy</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/{{ coin_id }}/2'">Ostatnie 2 godziny</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/{{ coin_id }}/4'">Ostatnie 4 godziny</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/{{ coin_id }}/8'">Ostatnie 8 godziny</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/{{ coin_id }}/12'">Ostatnie 12 godziny</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/{{ coin_id }}/24'">Ostatnie 24 godziny</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/old/{{ coin_id }}/7'">Ostatni tydzień</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/old/{{ coin_id }}/30'">Ostatni miesiąc</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/old/{{ coin_id }}/90'">Ostatnie 3 miesiące</div>
+    <div class="detail_time_menu_el" onclick="location.href='/crypt/detail/old/{{ coin_id }}/180'">Ostatnie 6 miesięcy</div>
   </div>

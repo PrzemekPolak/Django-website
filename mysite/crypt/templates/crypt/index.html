@@ -1,15 +1,17 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'crypt/css/style.css' %}">
+
 <div id="mainMenuPanel">
     {% include './top_menu.html' %}
 </div> 
 
-<div>Lista dostępnych kryptowalut:</div>
-
-<div style="display:flex;">
+<div class="index_lists_container">
     <div>
     {% if coins %}
-        <ul>
+        <ul class="index_names_list">
+            <li class="index_lists_title">Dostępne kryptowaluty:</li>
         {% for coin in coins %}
-            <li onclick="location.href='/crypt/detail/{{ coin.coin_id }}/8'">[{{ coin.coin_id }}] {{ coin.coin_name }}</li>
+            <li class="index_names_list_el" onclick="location.href='/crypt/detail/{{ coin.coin_id }}/8'">[{{ coin.coin_id }}] {{ coin.coin_name }}</li>
         {% endfor %}
         </ul>
     {% else %}
@@ -18,9 +20,10 @@
     </div>
     <div>
     {% if current_price %}
-        <ul style="list-style-type:none;">
+        <ul class="index_prices_list">
+            <li class="index_lists_title">Obecne ceny:</li>
         {% for cp in current_price %}
-            <li>{{ cp }}</li>
+            <li class="index_prices_list_el">{{ cp }}</li>
         {% endfor %}
         </ul>
     {% else %}

@@ -1,18 +1,16 @@
 {% load static %}
 
 {% block top_menu %}
-<div style="background:black;color:white;display:flex">
-    <div style="margin:30;font-size: 24" onclick="location.href='/crypt/'">Strona Główna</div>
-    <div style="margin:30;font-size: 24">{{  request.user }}</div>
-
+<div class="menu_container">
+    <div class="menu_el mainpage_el" onclick="location.href='/crypt/'">Strona Główna</div>
+    <div id="calendar" class="menu_el calendar"></div>
+    <div id="clock" class="menu_el"></div>
 {% if not request.user.is_authenticated %}
-    <div style="margin:30;font-size: 24" onclick="location.href='/crypt/user_log_in/'">Zaloguj się</div>
+    <div class="menu_el login_el" onclick="location.href='/crypt/user_log_in/'">Zaloguj się</div>
 {% else %} 
-    <div style="margin:30;font-size: 24" onclick="location.href='/crypt/user_log_out/'">Wyloguj się</div>
+    <div class="menu_el login_el" onclick="location.href='/crypt/user_log_out/'">Wyloguj się</div>
 {% endif %}
-
-    <div id="calendar" style="margin:30;font-size: 24"></div>
-    <div id="clock" style="margin:30;font-size: 24"></div>
+    <div class="menu_el">{{  request.user }}</div>
 </div>
 {% endblock %}
 
