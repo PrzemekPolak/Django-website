@@ -15,6 +15,18 @@ class Coin(models.Model):
     coin_name = models.CharField(max_length=20)
     def __str__(self):
         return self.coin_name
+    
+    def get_cp():
+        coins = Coin.objects.all()
+        cp_list = []
+        for c in coins:
+            try:
+                data = Coins_daily_data.get_data_from_x_hours_ago(c.coin_id, 1)
+                data_f = data[len(data)-1].price/10000
+                cp_list.append(data_f)
+            except:
+                cp_list.append('brak danych')
+        return coins, cp_list
 
 class Coins_data(models.Model):
     coins = models.ForeignKey(Coin, on_delete=models.CASCADE)

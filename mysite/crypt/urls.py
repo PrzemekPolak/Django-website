@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     # ex: /crypt/
-    path('', views.index.as_view(), name='index'),
+    #path('', views.index.as_view(), name='index'),
+    path('', views.index, name='index'),
     path('user_log_in/', views.user_log_in, name='user_log_in'),
     path('user_log_in_form/', views.user_log_in_form, name='user_log_in_form'),
     path('login_failed/', views.login_failed, name='login_failed'),

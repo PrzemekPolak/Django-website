@@ -1,17 +1,19 @@
 from django.shortcuts import get_list_or_404, get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import generic
-
+from .utils import *
 from .models import Coin, Coins_data, Coins_daily_data
 
-# def index(request):
-#     coins = get_list_or_404(Coin)
-#     return render(request, 'crypt/index.html', {'coins': coins})
-class index(generic.ListView):
-    template_name = 'crypt/index.html'
-    context_object_name = 'coins'
-    def get_queryset(self):
-        return Coin.objects.all()
+def index(request):
+    data = Coin.get_cp()
+    return render(request, 'crypt/index.html',
+    {'coins': data[0],
+    'current_price': data[1]})
+# class index(generic.ListView):
+#     template_name = 'crypt/index.html'
+#     context_object_name = 'coins'
+#     def get_queryset(self):
+#         return Coin.objects.all()
 
 def detail(request, coin_id, time_range):
     chart_time = Coins_daily_data.get_time(coin_id, time_range)

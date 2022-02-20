@@ -2,18 +2,31 @@
     {% include './top_menu.html' %}
 </div> 
 
+<div>Lista dostępnych kryptowalut:</div>
 
-{% if coins %}
-    <ul>
-    {% for coin in coins %}
-        <li><a href="/crypt/detail/{{ coin.coin_id }}/8">{{ coin.coin_id }}, {{ coin.coin_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No coins are available.</p>
-{% endif %}
-
-
-
+<div style="display:flex;">
+    <div>
+    {% if coins %}
+        <ul>
+        {% for coin in coins %}
+            <li onclick="location.href='/crypt/detail/{{ coin.coin_id }}/8'">[{{ coin.coin_id }}] {{ coin.coin_name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No coins are available.</p>
+    {% endif %}
+    </div>
+    <div>
+    {% if current_price %}
+        <ul style="list-style-type:none;">
+        {% for cp in current_price %}
+            <li>{{ cp }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No prices available</p>
+    {% endif %}
+    </div>
+</div>
 
 <a class="btn" href="/crypt/update_db_button">Update db</a>
