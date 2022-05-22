@@ -20,5 +20,6 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path('', RedirectView.as_view(url='/crypt')),
     path('crypt/', include('crypt.urls')),
+    path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
 ]

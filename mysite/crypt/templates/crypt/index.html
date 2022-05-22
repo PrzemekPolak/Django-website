@@ -35,3 +35,37 @@
 {% if not current_price %}
     <a class="btn_upd" href="/crypt/update_db_button">Naciśnij aby wprowadzić przykładowe dane do bazy danych (chwilę zajmie)</a>
 {% endif %}
+
+<script>
+    async function getData() {
+ 
+                // try {
+                //     // fetch tasks
+                //     // const response = await fetch('http://127.0.0.1:8000/api/',{method:'POST',body:{user_id:'1', coins:'BTC', ammount:20}});
+                //     const response = await fetch('http://127.0.0.1:8000/api');
+                //     // set the data returned as tasks
+                //     const tasks = response;
+                //     console.log(response.json().data)
+                // } catch (error) {
+                //     // log the error
+                //     console.log(error);
+                // }
+
+
+
+                await fetch('http://127.0.0.1:8000/api')
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    // Work with JSON data here
+                    console.log(data[0]['ammount'])
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
+                
+            }
+
+</script>

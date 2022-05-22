@@ -132,3 +132,4 @@ dmypy.json
 
 # Other
 no_commit/
+node_modules/
