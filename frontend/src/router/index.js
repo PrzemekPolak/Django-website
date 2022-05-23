@@ -20,6 +20,11 @@ const routes = [
         name: "HomePage",
         path: "",
         component: () => import("@/views/Home")
+    },
+    {
+        name: "CoinDetail",
+        path: "/coindetail/:id",
+        component: () => import("@/views/CoinDetail")
     }, 
 ]
 
