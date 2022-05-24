@@ -1,12 +1,12 @@
 <template>
 <div class="lists_container">
     <div class="names_list">
-    <li v-for="coin in coins" v-bind:key="coin" class="names_list_el">
-    <router-link :to="/coindetail/ + coin.coin_id" class="router_style">[{{ coin.coin_id }}] {{ coin.coin_name }}</router-link>
+    <li class="names_list_el">
+    <router-link :to="/coindetail/ + coin_id" class="router_style">[{{ coin_id }}] {{ coin_name }}</router-link>
     </li>
     </div>
     <div class="prices_list">
-    <li v-for="cp in current_price" v-bind:key="cp" class="prices_list_el">{{ cp }}</li>
+    <li class="prices_list_el">{{ current_price }}</li>
     </div>
 </div>
 </template>
@@ -15,8 +15,9 @@
 export default {
     name: "CoinListElement",
     props: {
-        coins: Array,
-        current_price: Array
+        coin_id: String,
+        coin_name: String,
+        current_price: [Number, String],
     },
     computed: {
     }

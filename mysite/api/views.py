@@ -3,7 +3,28 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from .serializers import User_assetSerializer
-from crypt.models import User_asset
+from crypt.models import User_asset, Coin
+
+
+# def coin_list(request):
+    # if(request.method == 'GET'):
+    #     data = Coin.get_cp()
+    #     data = ser.serialize('json', Coin.get_cp(), fields=('coin_id','coin_name','price'))
+    #     return JsonResponse(data,safe=False)
+
+# class coin_list(viewsets.ModelViewSet):
+#     queryset = Coin.objects.all()
+#     serializer_class = Coin_listSerializer
+
+
+def coin_list(request):
+    if(request.method == 'GET'):
+        data = list(Coin.objects.values())
+        cp_data = Coin.get_cp()
+        for x in range(len(data)):
+            data[x]['current_price'] = cp_data[x]        
+        return JsonResponse(data,safe=False)
+
 
 @csrf_exempt
 def user_asset(request):
