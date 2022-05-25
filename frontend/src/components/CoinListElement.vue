@@ -29,6 +29,7 @@ export default {
     display: flex;
 }
 .names_list {
+    width: 300px;
     list-style-type:none;
     font-size: 26px;
     font-style: italic;
@@ -42,8 +43,10 @@ export default {
     cursor: pointer;
 }
 .prices_list {
+    width: 200px;
+    text-align: center;
     list-style-type:none;
-     float:left;
+    float:left;
 }
 .prices_list_el {
     margin: 15px;

@@ -19,5 +19,13 @@ pip install -r requirements.txt  // instaluje biblioteki z requirements.txt
 
 <!-- node_modules/.bin/create-react-app frontend -->
 
+npm install  // w folderze frontend instaluje rzeczy z package.json
+
 cd frontend
 npm run serve
+
+
+
+enlistconfig -> rules
+      "no-unused-vars": "off", 
+      "no-mixed-spaces-and-tabs": 0

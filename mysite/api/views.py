@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from .serializers import User_assetSerializer
-from crypt.models import User_asset, Coin
+from crypt.models import User_asset, Coin, Coins_daily_data, Coins_data
 
 
 # def coin_list(request):
@@ -24,6 +24,27 @@ def coin_list(request):
         for x in range(len(data)):
             data[x]['current_price'] = cp_data[x]        
         return JsonResponse(data,safe=False)
+
+
+def coin_get_price(request, coin_id, time_range):
+    chart_time = Coins_daily_data.get_time(coin_id, time_range)
+    chart_price = Coins_daily_data.get_price(coin_id, time_range)
+    coin_data = {
+        'labels': chart_time,
+        'data': chart_price,
+    }
+    return JsonResponse(coin_data,safe=False)
+
+def coin_get_price_old(request, coin_id, time_range):
+    chart_time = Coins_data.get_time(coin_id, time_range)
+    chart_price = Coins_data.get_price(coin_id, time_range)
+    coin_data = {
+        'labels': chart_time,
+        'data': chart_price,
+    }   
+    return JsonResponse(coin_data,safe=False)
+
+
 
 
 @csrf_exempt

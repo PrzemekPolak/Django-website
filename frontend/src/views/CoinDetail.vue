@@ -9,50 +9,71 @@
   </div>
   
   <div class="chart-container">
-    <!-- <canvas id="myChart" style="background-color:#29251a;"></canvas> -->
-        <LineChart
-            :chart-data = chartData
+        <CoinChart
+            :coinData = coin_data
+            :coin_id = coin_id
         />
     </div>
-
-
+<button @click="testupdate()" type="button">test</button>
   </div>  
 </template>
 
 <script>
 import TopMenu from "@/components/TopMenu";
-import LineChart from "@/components/LineChart";
+import CoinChart from "@/components/CoinChart";
 
 export default {
   name: "CoinDetail",
   components: {
       TopMenu,
-      LineChart,
+      CoinChart,
   },
       data() {
         return {
-            chart_conf: {},
-            chart_time_data: ['11-11-2011', '12-11-2011'],
-            chart_price_data: [1111.22, 2111.22],
-            chart_id_data: 'BTC',
+            time_range: 12,
+            coin_data: {},
+            coin_id: '',
+
             pp: {
               el4: 'User',
             },
-      chartData: {
-        labels: ['11-11-2011', '12-11-2011'],
-        datasets: [
-          {
-            label: 'BTC',
-            backgroundColor: 'rgb(235, 233, 230)',
-            data: [1111.22, 2111.22]
-          }
-        ]
-      },
+
     }},
   mounted() {
   },
   methods: {
+    loadData() {
+        const fetch_url = 'http://127.0.0.1:8000/api/coin_get_price/'+this.coin_id+'/'+this.time_range
+                fetch(fetch_url)
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    this.coin_data = data
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+    },
+    testupdate() {
+        const fetch_url = 'http://127.0.0.1:8000/api/coin_get_price/'+this.coin_id+'/'+6
+                fetch(fetch_url)
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    this.coin_data = data
+                })
+                .catch(err => {
+                    console.log(err)
+                })      
+    }
   },
+  created() {
+    this.coin_id = this.$route.params.id
+    this.loadData()
+  },
+
   computed: {
 
   }

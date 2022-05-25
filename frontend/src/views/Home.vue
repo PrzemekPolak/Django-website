@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     loadData() {
-      console.log('bede pobierał')
                 fetch('http://127.0.0.1:8000/api/coin_list/')
                 .then(response => {
                     return response.json()
