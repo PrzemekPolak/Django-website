@@ -3,8 +3,10 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from .serializers import User_assetSerializer
-from crypt.models import User_asset, Coin, Coins_daily_data, Coins_data
-
+from crypt.models import User_asset, Coin, Coins_daily_data, Coins_data, User_additional_data
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 # def coin_list(request):
     # if(request.method == 'GET'):
@@ -16,7 +18,7 @@ from crypt.models import User_asset, Coin, Coins_daily_data, Coins_data
 #     queryset = Coin.objects.all()
 #     serializer_class = Coin_listSerializer
 
-
+# @login_required
 def coin_list(request):
     if(request.method == 'GET'):
         data = list(Coin.objects.values())
@@ -44,53 +46,37 @@ def coin_get_price_old(request, coin_id, time_range):
     }   
     return JsonResponse(coin_data,safe=False)
 
-
-
+@csrf_exempt
+def user_login(request):
+    # if request.method == "POST":
+    data = JSONParser().parse(request)
+    username = data['uname']
+    password = data['psw']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        add_data = User_additional_data.objects.get(id=user.id)
+        cash = add_data.wallet
+        return JsonResponse({'logged': True,'user': user.username, 'user_id': user.id, 'cash': cash, 'failed_login': False},safe=False)
+    else:
+        return JsonResponse({'logged': False, 'user': None, 'user_id': None, 'cash': None, 'failed_login': True},safe=False)
 
 @csrf_exempt
-def user_asset(request):
-    if(request.method == 'GET'):
-        tasks = User_asset.objects.all()
-        serializer = User_assetSerializer(tasks, many=True)
-        print(serializer.data)
-        return JsonResponse(serializer.data,safe=False)
-    elif(request.method == 'POST'):
+def user_logout(request):
+    logout(request)   
+    return JsonResponse({'success': True,},safe=False)
+
+
+
+
+def coin_buy(request):
+    if request.method == "POST":
         data = JSONParser().parse(request)
-        serializer = User_assetSerializer(data=data)
-        if(serializer.is_valid()):
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        coin_id = data['coin_id']
+        form_amount = data['form_amount']
+        user_id = data['user_id']
 
-
-# class user_asset(viewsets.ModelViewSet):
-#     queryset = User_asset.objects.all()
-#     serializer_class = User_assetSerializer
-
-
-@csrf_exempt
-def user_asset_detail(request, pk):
-    try:
-        # obtain the task with the passed id.
-        task = User_asset.objects.get(pk=pk)
-    except:
-        # respond with a 404 error message
-        return HttpResponse(status=404)  
-    if(request.method == 'PUT'):
-        # parse the incoming information
-        data = JSONParser().parse(request)  
-        # instanciate with the serializer
-        serializer = User_assetSerializer(task, data=data)
-        # check whether the sent information is okay
-        if(serializer.is_valid()):  
-            # if okay, save it on the database
-            serializer.save() 
-            # provide a JSON response with the data that was submitted
-            return JsonResponse(serializer.data, status=201)
-        # provide a JSON response with the necessary error information
-        return JsonResponse(serializer.errors, status=400)
-    elif(request.method == 'DELETE'):
-        # delete the task
-        task.delete() 
-        # return a no content response.
-        return HttpResponse(status=204)
+        coin = Coin.objects.get(coin_id=coin_id)
+        u_asset = User_asset(user_id=user_id, coins=coin, ammount=form_amount)
+        u_asset.save()
+        return JsonResponse({'success': True},safe=False)

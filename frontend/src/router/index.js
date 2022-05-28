@@ -25,7 +25,12 @@ const routes = [
         name: "CoinDetail",
         path: "/coindetail/:id",
         component: () => import("@/views/CoinDetail")
-    }, 
+    },
+    {
+    name: "UserLogin",
+        path: "/userlogin",
+        component: () => import("@/views/UserLogin")
+    },
 ]
 
 const router = createRouter({
