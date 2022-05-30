@@ -4,7 +4,7 @@ python manage.py runserver
 cd mysite
 pip -V
 
-python manage.py makemogrations crypt
+python manage.py makemigrations crypt
 python manage.py migrate
 
 
@@ -24,7 +24,11 @@ npm install  // w folderze frontend instaluje rzeczy z package.json
 cd frontend
 npm run serve
 
-
+TODO:
+sprzedaż
+widok portfela
+historia transakcji
+db int -> float
 
 enlistconfig -> rules
       "no-unused-vars": "off", 

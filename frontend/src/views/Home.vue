@@ -23,9 +23,6 @@
   </div>
   <p v-else>Coins or prices are unavailable.</p>
 
-{{logged_in_user}}
-         {{user_id}}
-         {{cash}}
 </template>
 
 <script>

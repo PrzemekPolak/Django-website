@@ -95,5 +95,24 @@ class User_asset(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     coins = models.ForeignKey(Coin, on_delete=models.CASCADE)
     ammount = models.IntegerField()
+    average_price = models.FloatField(null=True)
     class Meta:
         unique_together = (('user_id', 'coins'),)
+
+class Transaction_history(models.Model):
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    date_time = models.DateTimeField()
+    BUY = 1
+    SELL = 2
+    TRANSACTION_TYPE = (
+        (BUY, 'Buy'),
+        (SELL, 'Sell'),
+    )
+    transaction_type = models.PositiveSmallIntegerField(
+        choices=TRANSACTION_TYPE,
+    )
+    coins = models.ForeignKey(Coin, on_delete=models.CASCADE)
+    coins_amount = models.IntegerField()
+    total_value = models.FloatField()
+
+# TODO: Change fields from integer to float

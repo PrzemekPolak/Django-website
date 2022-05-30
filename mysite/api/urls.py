@@ -12,4 +12,6 @@ urlpatterns = [
     path('user_login/', views.user_login),
     path('user_logout/', views.user_logout),
     path('coin_buy/', views.coin_buy),
+    path('get_user_assets/<str:user_id>/', views.get_user_assets.as_view({'get': 'list'})),
+    path('get_user_assets/<str:user_id>/<str:coin_id>/', views.get_user_assets.as_view({'get': 'list'})),
 ]

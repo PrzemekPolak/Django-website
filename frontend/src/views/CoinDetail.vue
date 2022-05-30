@@ -28,9 +28,23 @@
   </div>
 </div>
 
-<CoinBuyForm 
-  :coin_price = coin_buy
-/>
+<div>
+  <button @click="show_buy_form = true" type="button">Zakup</button>
+  <button @click="show_buy_form = false" type="button">Sprzedaj</button>
+</div>
+
+<div v-if="show_buy_form">
+  <CoinBuyForm 
+    :coin_price = coin_buy
+    :user_id = user_id
+  />
+</div>
+<div v-else>
+  Formularz sprzedaży
+</div>
+
+
+
 </template>
 
 <script>
@@ -65,7 +79,8 @@ export default {
               ['Ostatni miesiąc', 30, true],
               ['Ostatnie 3 miesiące', 90, true],
               ['Ostatnie 6 miesięcy', 180, true],
-            ]
+            ],
+            show_buy_form: true,
 
     }},
   mounted() {
