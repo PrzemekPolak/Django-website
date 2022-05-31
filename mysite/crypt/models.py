@@ -8,7 +8,7 @@ from .utils import *
 
 class User_additional_data(models.Model):
     id = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    wallet = models.IntegerField()
+    wallet = models.FloatField()
 
 class Coin(models.Model):
     coin_id = models.CharField(max_length=10, primary_key=True)
@@ -94,7 +94,7 @@ class Coins_daily_data(models.Model):
 class User_asset(models.Model):
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     coins = models.ForeignKey(Coin, on_delete=models.CASCADE)
-    ammount = models.IntegerField()
+    amount = models.FloatField()
     average_price = models.FloatField(null=True)
     class Meta:
         unique_together = (('user_id', 'coins'),)
@@ -112,7 +112,5 @@ class Transaction_history(models.Model):
         choices=TRANSACTION_TYPE,
     )
     coins = models.ForeignKey(Coin, on_delete=models.CASCADE)
-    coins_amount = models.IntegerField()
+    coins_amount = models.FloatField()
     total_value = models.FloatField()
-
-# TODO: Change fields from integer to float

@@ -28,7 +28,6 @@ TODO:
 sprzedaż
 widok portfela
 historia transakcji
-db int -> float
 
 enlistconfig -> rules
       "no-unused-vars": "off", 

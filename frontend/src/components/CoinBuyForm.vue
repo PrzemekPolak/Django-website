@@ -53,7 +53,9 @@ export default {
         getUserCoins() {
             axios.get('http://127.0.0.1:8000/api/get_user_assets/'+this.user_id+'/'+this.coin_id+'/')
                 .then((res) => {
-                    this.owned_coins = res.data[0]['ammount']
+                    if (res.data.length > 0) {
+                        this.owned_coins = res.data[0]['amount']
+                    }
                 })
                 .catch((error) => {
                     console.log(error)

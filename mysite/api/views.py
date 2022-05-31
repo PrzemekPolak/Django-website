@@ -106,9 +106,9 @@ def coin_buy(request):
     # Update amount of cash and average price. Add record to transaction history
     already_exist = User_asset.objects.filter(user_id=user, coins=coin)
     if already_exist:
-        current_amount = already_exist[0].ammount
+        current_amount = already_exist[0].amount
         new_amount = current_amount + form_amount
-        already_exist[0].ammount = new_amount
+        already_exist[0].amount = new_amount
         new_average_price = (already_exist[0].average_price * current_amount) + (form_amount * current_price)
         already_exist[0].average_price = new_average_price / new_amount
         already_exist[0].save()
@@ -116,12 +116,12 @@ def coin_buy(request):
         user_cash.save()
         transaction_history = Transaction_history(user_id=user, date_time=timestamp, transaction_type=1, coins=coin, coins_amount=form_amount, total_value=total)
         transaction_history.save()
-        return JsonResponse({'success': True, 'amount': already_exist[0].ammount, 'cash': user_cash.wallet},safe=False)
+        return JsonResponse({'success': True, 'amount': already_exist[0].amount, 'cash': user_cash.wallet},safe=False)
     else:
-        u_asset = User_asset(user_id=user, coins=coin, ammount=form_amount, average_price=current_price)
+        u_asset = User_asset(user_id=user, coins=coin, amount=form_amount, average_price=current_price)
         u_asset.save()
         user_cash.wallet -= total
         user_cash.save()
         transaction_history = Transaction_history(user_id=user, date_time=timestamp, transaction_type=1, coins=coin, coins_amount=form_amount, total_value=total)
         transaction_history.save()
-        return JsonResponse({'success': True, 'amount': already_exist[0].ammount, 'cash': user_cash.wallet},safe=False)
+        return JsonResponse({'success': True, 'amount': u_asset.amount, 'cash': user_cash.wallet},safe=False)
