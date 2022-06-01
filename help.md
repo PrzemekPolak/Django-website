@@ -25,7 +25,6 @@ cd frontend
 npm run serve
 
 TODO:
-sprzedaż
 widok portfela
 historia transakcji
 

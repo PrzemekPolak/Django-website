@@ -125,3 +125,37 @@ def coin_buy(request):
         transaction_history = Transaction_history(user_id=user, date_time=timestamp, transaction_type=1, coins=coin, coins_amount=form_amount, total_value=total)
         transaction_history.save()
         return JsonResponse({'success': True, 'amount': u_asset.amount, 'cash': user_cash.wallet},safe=False)
+
+@csrf_exempt
+def coin_sell(request):
+    data = JSONParser().parse(request)
+    coin_id = data['coin_id']
+    form_amount = int(data['form_amount'])
+    user_id = data['user_id']
+
+    user = User.objects.get(id=user_id)
+    coin = Coin.objects.get(coin_id=coin_id)
+    timestamp = datetime.datetime.now()
+    existing_asset = User_asset.objects.get(user_id=user, coins=coin)
+    
+    # Check if user has enough coins and buy more than 0
+    if existing_asset.amount < form_amount and form_amount > 0:
+        return JsonResponse({'success': False, 'error': 'Insufficient coins amount or buying less than 0'},safe=False)
+
+    user_cash = User_additional_data.objects.get(id=user_id)
+    current_price = Coins_daily_data.get_price(coin_id, 2)[-1]
+    total = current_price * form_amount
+
+    # Update amount of cash and coins
+    user_cash.wallet += total
+    user_cash.save()
+    current_amount = existing_asset.amount
+    new_amount = current_amount - form_amount
+    existing_asset.amount = new_amount   
+    existing_asset.save()
+
+    # Add transaction history
+    transaction_history = Transaction_history(user_id=user, date_time=timestamp, transaction_type=2, coins=coin, coins_amount=form_amount, total_value=total)
+    transaction_history.save()
+
+    return JsonResponse({'success': True, 'amount': existing_asset.amount, 'cash': user_cash.wallet},safe=False)

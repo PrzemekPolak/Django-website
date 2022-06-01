@@ -30,7 +30,7 @@
 
 <div>
   <button @click="show_buy_form = true" type="button">Zakup</button>
-  <button @click="show_buy_form = false" type="button">Sprzedaj</button>
+  <button @click="show_buy_form = false" type="button">Sprzedaż</button>
 </div>
 
 <div v-if="show_buy_form">
@@ -40,7 +40,10 @@
   />
 </div>
 <div v-else>
-  Formularz sprzedaży
+  <CoinSellForm 
+    :coin_price = coin_buy
+    :user_id = user_id
+  />
 </div>
 
 
@@ -52,6 +55,7 @@ import MenuTop from "@/components/MenuTop";
 import CoinChart from "@/components/CoinChart";
 import GetCoinDataButton from "@/components/GetCoinDataButton";
 import CoinBuyForm from "@/components/CoinBuyForm";
+import CoinSellForm from "@/components/CoinSellForm";
 
 export default {
   name: "CoinDetail",
@@ -60,6 +64,7 @@ export default {
     CoinChart,
     GetCoinDataButton,
     CoinBuyForm,
+    CoinSellForm,
 },
       data() {
         return {
