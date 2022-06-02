@@ -36,6 +36,11 @@ const routes = [
     path: "/userwallet",
     component: () => import("@/views/UserWallet")
     },
+    {
+        name: "UserTransactions",
+        path: "/usertransactions",
+        component: () => import("@/views/UserTransactions")
+    },
 ]
 
 const router = createRouter({

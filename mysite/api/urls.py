@@ -15,4 +15,5 @@ urlpatterns = [
     path('coin_sell/', views.coin_sell),
     path('get_user_assets/<str:user_id>/', views.get_user_assets.as_view({'get': 'list'})),
     path('get_user_assets/<str:user_id>/<str:coin_id>/', views.get_user_assets.as_view({'get': 'list'})),
+    path('get_user_transactions/<str:user_id>/', views.get_user_transactions.as_view({'get': 'list'})),
 ]

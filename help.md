@@ -24,9 +24,6 @@ npm install  // w folderze frontend instaluje rzeczy z package.json
 cd frontend
 npm run serve
 
-TODO:
-widok portfela
-historia transakcji
 
 enlistconfig -> rules
       "no-unused-vars": "off", 

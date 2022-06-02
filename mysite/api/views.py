@@ -2,7 +2,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
-from .serializers import User_assetSerializer
+from .serializers import User_assetSerializer, Transaction_historySerializer
 from crypt.models import Transaction_history, User_asset, Coin, Coins_daily_data, Coins_data, User_additional_data
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -159,3 +159,11 @@ def coin_sell(request):
     transaction_history.save()
 
     return JsonResponse({'success': True, 'amount': existing_asset.amount, 'cash': user_cash.wallet},safe=False)
+
+class get_user_transactions(viewsets.ModelViewSet):
+    queryset = Transaction_history.objects.all()
+    serializer_class = Transaction_historySerializer
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        return Transaction_history.objects.filter(user_id=user_id).order_by('-date_time')
+
