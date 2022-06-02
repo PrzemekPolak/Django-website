@@ -3,6 +3,11 @@
     <router-link to="/" class="router_style">
         <div class="menu_el mainpage_el">Strona Główna</div>
     </router-link>
+    <div v-if="logged_in_user" style="display:flex">
+        <router-link to="/userwallet" class="router_style">
+            <div class="menu_el mainpage_el">Portfel</div>
+        </router-link>
+    </div>
     <div class="menu_el calendar">
         <MenuDate />
     </div>

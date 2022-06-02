@@ -41,9 +41,6 @@ export default {
          user_name: null,
          user_id: null,
          cash: null,
-         pp: {
-            el4: 'User1',
-         },
          list_data: [],
       }
     },
