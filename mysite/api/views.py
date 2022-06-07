@@ -1,28 +1,21 @@
 from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
-from .serializers import User_assetSerializer, Transaction_historySerializer
+from django.http import JsonResponse
+from .serializers import CoinSerializer, User_assetSerializer, Transaction_historySerializer
 from crypt.models import Transaction_history, User_asset, Coin, Coins_daily_data, Coins_data, User_additional_data
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 import datetime
 
 
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import ensure_csrf_cookie
+class get_coin_name(viewsets.ModelViewSet):
+    queryset = Coin.objects.all()
+    serializer_class = CoinSerializer
+    def get_queryset(self):
+        coin_id = self.kwargs.get('coin_id')
+        return Coin.objects.filter(coin_id=coin_id)
 
-# def coin_list(request):
-    # if(request.method == 'GET'):
-    #     data = Coin.get_cp()
-    #     data = ser.serialize('json', Coin.get_cp(), fields=('coin_id','coin_name','price'))
-    #     return JsonResponse(data,safe=False)
-
-# class coin_list(viewsets.ModelViewSet):
-#     queryset = Coin.objects.all()
-#     serializer_class = Coin_listSerializer
-
-# @login_required
 def coin_list(request):
     if(request.method == 'GET'):
         data = list(Coin.objects.values())
@@ -88,7 +81,7 @@ class get_user_assets(viewsets.ModelViewSet):
 def coin_buy(request):    
     data = JSONParser().parse(request)
     coin_id = data['coin_id']
-    form_amount = int(data['form_amount'])
+    form_amount = float(data['form_amount'])
     user_id = data['user_id']
 
     user = User.objects.get(id=user_id)
@@ -129,9 +122,13 @@ def coin_buy(request):
 @csrf_exempt
 def coin_sell(request):
     data = JSONParser().parse(request)
-    coin_id = data['coin_id']
-    form_amount = int(data['form_amount'])
-    user_id = data['user_id']
+    # Check if correct date type
+    try:
+        coin_id = data['coin_id']
+        form_amount = float(data['form_amount'])
+        user_id = data['user_id']
+    except:
+        return JsonResponse({'success': False, 'error': 'Wrong data type'},safe=False)
 
     user = User.objects.get(id=user_id)
     coin = Coin.objects.get(coin_id=coin_id)

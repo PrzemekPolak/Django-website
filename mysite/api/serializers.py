@@ -11,8 +11,7 @@ class Transaction_historySerializer(serializers.ModelSerializer):
         model = Transaction_history
         fields = '__all__'
 
-# na razie nie używane
-# class CoinSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Coin
-#         fields = ['coin_id', 'coin_name']
+class CoinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coin
+        fields = ['coin_id', 'coin_name']

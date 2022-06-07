@@ -6,7 +6,7 @@
     </li>
     </div>
     <div class="prices_list">
-    <li class="prices_list_el">{{ current_price }}</li>
+    <li class="prices_list_el">{{ current_price }} €</li>
     </div>
 </div>
 </template>
@@ -35,6 +35,7 @@ export default {
     font-style: italic;
 }
 .names_list_el{
+    width: 240px;
     margin: 15px;
     padding: 18px;
 }

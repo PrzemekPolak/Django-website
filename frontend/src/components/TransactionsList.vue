@@ -12,7 +12,7 @@
             <td>{{ translate_types(transaction.transaction_type) }}</td>
             <td>{{ name_data[transaction.coins] }} [{{transaction.coins}}]</td>
             <td>{{ parseFloat(transaction.coins_amount.toFixed(4)) }}</td>
-            <td>{{ parseFloat(transaction.total_value.toFixed(4)) }}</td>
+            <td>{{ parseFloat(transaction.total_value.toFixed(4)) }} €</td>
         </tr>
     </table>
 </template>

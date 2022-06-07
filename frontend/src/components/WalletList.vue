@@ -10,8 +10,8 @@
         <tr v-for="asset in assets_data" v-bind:key="asset">
             <td>{{ name_data[asset.coins] }} [{{asset.coins}}]</td>
             <td>{{ parseFloat(asset.amount.toFixed(4)) }}</td>
-            <td>{{ parseFloat(asset.average_price.toFixed(4)) }}</td>
-            <td>{{ price_data[asset.coins] }}</td>
+            <td>{{ parseFloat(asset.average_price.toFixed(4)) }} €</td>
+            <td>{{ price_data[asset.coins] }} €</td>
             <td>{{ compute_change(asset.average_price, asset.coins) }}</td>
         </tr>
     </table>
@@ -33,9 +33,9 @@ export default {
                 return 'Brak danych'
             }
             if (percent_change > 0) {
-                return change + ' (+' + percent_change + '%)'
+                return change + ' € (+' + percent_change + '%)'
             }
-            return change + ' (' + percent_change + '%)'
+            return change + ' € (' + percent_change + '%)'
         }
     },
 };

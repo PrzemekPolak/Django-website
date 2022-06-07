@@ -41,21 +41,42 @@ export default {
         return {
             chartOptions: {
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                color: "white",
+                scales: {
+                  yAxes: {
+                      ticks: {
+                          color: "white",
+                          font: {
+                              size: 16,
+                          },
+                      }
+                  },
+                  xAxes: {
+                      ticks: {
+                          color: "white",
+                          font: {
+                              size: 16,
+                          },
+                      }
+                  },
+                },
             },
     }},
   computed: {
     chartData() { 
         return {
-                labels: this.coinData.labels,
-                datasets: [
-                    {
-                        label: this.coin_id,
-                        backgroundColor: 'rgb(235, 233, 230)',
-                        data: this.coinData.data
-                    }
-                ]
-            }
+            labels: this.coinData.labels,
+            datasets: [
+                {
+                    label: this.coin_id + ' (w euro)',
+                    data: this.coinData.data,
+                    backgroundColor: 'rgb(235, 233, 230)',
+                    borderColor: 'red',
+                    borderWidth: 2,
+                }
+            ]
+        }
     }
   }
 };

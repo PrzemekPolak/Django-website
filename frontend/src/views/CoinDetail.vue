@@ -5,9 +5,7 @@
         :logged_in_user = logged_in_user
       />
   
-  <div>
-      detale {{ $route.params.id }}
-  </div>
+  <div class="page_title">{{ coin_name }} [{{ coin_id }}]</div>
   
 <div class="chart_buttons_container">
   <div class="chart-container">
@@ -28,21 +26,15 @@
   </div>
 </div>
 
-<div>
+<div v-if="logged_in_user" class="buy_sell_form">
   <button @click="show_buy_form = true" type="button">Zakup</button>
   <button @click="show_buy_form = false" type="button">Sprzedaż</button>
-</div>
 
-<div v-if="show_buy_form">
-  <CoinBuyForm 
+  <CoinBuySellForm 
     :coin_price = coin_buy
     :user_id = user_id
-  />
-</div>
-<div v-else>
-  <CoinSellForm 
-    :coin_price = coin_buy
-    :user_id = user_id
+    :show_buy_form = show_buy_form
+    :cash = cash
   />
 </div>
 
@@ -54,8 +46,7 @@
 import MenuTop from "@/components/MenuTop";
 import CoinChart from "@/components/CoinChart";
 import GetCoinDataButton from "@/components/GetCoinDataButton";
-import CoinBuyForm from "@/components/CoinBuyForm";
-import CoinSellForm from "@/components/CoinSellForm";
+import CoinBuySellForm from "@/components/CoinBuySellForm";
 
 export default {
   name: "CoinDetail",
@@ -63,8 +54,7 @@ export default {
     MenuTop,
     CoinChart,
     GetCoinDataButton,
-    CoinBuyForm,
-    CoinSellForm,
+    CoinBuySellForm,
 },
       data() {
         return {
@@ -75,6 +65,7 @@ export default {
             time_range: 24,
             coin_data: {},
             coin_id: '',
+            coin_name: '',
             button_list: [
               ['Ostatnie 4 godziny', 4, false],
               ['Ostatnie 8 godziny', 8, false],
@@ -102,6 +93,17 @@ export default {
                 })
                 .then(data => {
                     this.coin_data = data
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+
+          fetch('http://127.0.0.1:8000/api/get_coin_name/'+this.coin_id+'/')
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    this.coin_name = data[0]['coin_name']
                 })
                 .catch(err => {
                     console.log(err)
@@ -161,5 +163,16 @@ body {
     width: 100%;
     margin-right: auto;
     margin-left: auto;  
+}
+
+.buy_sell_form {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.page_title {
+    font-size: 34px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 </style>
