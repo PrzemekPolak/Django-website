@@ -1,36 +1,35 @@
 <template>
-    <div class="menu_container">
-        <router-link to="/" class="router_style">
-            <div class="menu_el mainpage_el">Strona Główna</div>
+<div class="menu_container">
+    <router-link to="/" class="router_style">
+        <div class="menu_el mainpage_el">Strona Główna</div>
+    </router-link>
+    <div v-if="logged_in_user" style="display:flex">
+        <router-link to="/userwallet" class="router_style">
+            <div class="menu_el mainpage_el">Portfel</div>
         </router-link>
-        <div v-if="logged_in_user" style="display:flex">
-            <router-link to="/userwallet" class="router_style">
-                <div class="menu_el mainpage_el">Portfel</div>
-            </router-link>
-        </div>
-        <div v-if="logged_in_user" style="display:flex">
-            <router-link to="/usertransactions" class="router_style">
-                <div class="menu_el mainpage_el">Historia</div>
-            </router-link>
-        </div>
-        <div class="menu_el calendar">
-            <MenuDate />
-        </div>
-        <div class="menu_el clock">
-            <MenuClock />
-        </div>
-
-        <div v-if="!logged_in_user" style="display:flex">
-            <router-link to="/userlogin" class="router_style">
-                <div class="menu_el login_el">Zaloguj się</div>
-            </router-link>
-            <div class="menu_el">Gość</div>
-        </div>
-        <div v-else style="display:flex">
-            <div class="menu_el login_el" @click="logout()">Wyloguj się</div>
-            <div class="menu_el">{{ user_name }}</div>
-        </div>
     </div>
+    <div v-if="logged_in_user" style="display:flex">
+        <router-link to="/usertransactions" class="router_style">
+            <div class="menu_el mainpage_el">Historia</div>
+        </router-link>
+    </div>
+    <div class="menu_el calendar">
+        <MenuDate />
+    </div>
+    <div class="menu_el clock">
+        <MenuClock />
+    </div>
+    <div v-if="!logged_in_user" style="display:flex">
+        <router-link to="/userlogin" class="router_style">
+            <div class="menu_el login_el">Zaloguj się</div>
+        </router-link>
+        <div class="menu_el">Gość</div>
+    </div>
+    <div v-else style="display:flex">
+        <div class="menu_el login_el" @click="logout()">Wyloguj się</div>
+        <div class="menu_el">{{ user_name }}</div>
+    </div>
+</div>
 </template>
 
 <script>

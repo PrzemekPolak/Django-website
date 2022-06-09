@@ -128,21 +128,20 @@ def coin_sell(request):
         form_amount = float(data['form_amount'])
         user_id = data['user_id']
     except:
-        return JsonResponse({'success': False, 'error': 'Wrong data type'},safe=False)
-
+        return JsonResponse({'success': False,
+            'error': 'Wrong data type'},safe=False)
     user = User.objects.get(id=user_id)
     coin = Coin.objects.get(coin_id=coin_id)
     timestamp = datetime.datetime.now()
-    existing_asset = User_asset.objects.get(user_id=user, coins=coin)
-    
+    existing_asset = User_asset.objects.get(user_id=user, coins=coin)    
     # Check if user has enough coins and buy more than 0
     if existing_asset.amount < form_amount and form_amount > 0:
-        return JsonResponse({'success': False, 'error': 'Insufficient coins amount or buying less than 0'},safe=False)
-
+        return JsonResponse({'success': False,
+            'error': 'Insufficient coins amount or buying less than 0'},
+            safe=False)
     user_cash = User_additional_data.objects.get(id=user_id)
     current_price = Coins_daily_data.get_price(coin_id, 2)[-1]
     total = current_price * form_amount
-
     # Update amount of cash and coins
     user_cash.wallet += total
     user_cash.save()
@@ -150,12 +149,14 @@ def coin_sell(request):
     new_amount = current_amount - form_amount
     existing_asset.amount = new_amount   
     existing_asset.save()
-
     # Add transaction history
-    transaction_history = Transaction_history(user_id=user, date_time=timestamp, transaction_type=2, coins=coin, coins_amount=form_amount, total_value=total)
+    transaction_history = Transaction_history(user_id=user,
+        date_time=timestamp, transaction_type=2,
+        coins=coin, coins_amount=form_amount, total_value=total)
     transaction_history.save()
-
-    return JsonResponse({'success': True, 'amount': existing_asset.amount, 'cash': user_cash.wallet},safe=False)
+    return JsonResponse({'success': True,
+        'amount': existing_asset.amount, 'cash': user_cash.wallet},
+        safe=False)
 
 class get_user_transactions(viewsets.ModelViewSet):
     queryset = Transaction_history.objects.all()

@@ -1,45 +1,37 @@
 <template>
-
-      <MenuTop        
-        :user_name = user_name
-        :logged_in_user = logged_in_user
-      />
-  
-  <div class="page_title">{{ coin_name }} [{{ coin_id }}]</div>
-  
-<div class="chart_buttons_container">
-  <div class="chart-container">
+  <MenuTop        
+    :user_name = user_name
+    :logged_in_user = logged_in_user
+  /> 
+  <div class="page_title">{{ coin_name }} [{{ coin_id }}] (w euro)</div>
+    <div class="chart_buttons_container">
+      <div class="chart-container">
         <CoinChart
             :coinData = coin_data
             :coin_id = coin_id
         />
-  </div>
-  <div class="buttons_container">
-    <div v-for="elem in button_list" v-bind:key="elem">
-      <GetCoinDataButton @clicked="onClickCoinButton"
-          :buttonName = elem[0]
-          :timeRange = elem[1]
-          :dataIsOld = elem[2]
-          :coinId = coin_id
-      />
+    </div>
+    <div class="buttons_container">
+      <div v-for="elem in button_list" v-bind:key="elem">
+        <GetCoinDataButton @clicked="onClickCoinButton"
+            :buttonName = elem[0]
+            :timeRange = elem[1]
+            :dataIsOld = elem[2]
+            :coinId = coin_id
+        />
+      </div>
     </div>
   </div>
-</div>
-
-<div v-if="logged_in_user" class="buy_sell_form">
-  <button @click="show_buy_form = true" type="button">Zakup</button>
-  <button @click="show_buy_form = false" type="button">Sprzedaż</button>
-
-  <CoinBuySellForm 
-    :coin_price = coin_buy
-    :user_id = user_id
-    :show_buy_form = show_buy_form
-    :cash = cash
-  />
-</div>
-
-
-
+  <div v-if="logged_in_user" class="buy_sell_form">
+    <button @click="show_buy_form = true" type="button">Zakup</button>
+    <button @click="show_buy_form = false" type="button">Sprzedaż</button>
+    <CoinBuySellForm 
+      :coin_price = coin_buy
+      :user_id = user_id
+      :show_buy_form = show_buy_form
+      :cash = cash
+    />
+  </div>
 </template>
 
 <script>
@@ -171,7 +163,7 @@ body {
 }
 
 .page_title {
-    font-size: 34px;
+    font-size: 32px;
     text-align: center;
     margin-bottom: 20px;
 }

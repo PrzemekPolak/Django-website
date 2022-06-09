@@ -69,7 +69,7 @@ export default {
             labels: this.coinData.labels,
             datasets: [
                 {
-                    label: this.coin_id + ' (w euro)',
+                    label: '',
                     data: this.coinData.data,
                     backgroundColor: 'rgb(235, 233, 230)',
                     borderColor: 'red',

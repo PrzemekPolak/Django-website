@@ -6,7 +6,7 @@
     <div>  
         <div class="single_row">
             <div class="first_column">Posiadana ilośc:</div>
-            <div>{{owned_coins}}</div>
+            <div>{{owned_coins}} {{coin_id}}</div>
         </div>
         <div class="single_row">
             <div class="first_column">Obecna cena:</div>
