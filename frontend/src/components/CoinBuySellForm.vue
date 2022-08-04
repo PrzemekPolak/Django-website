@@ -27,10 +27,10 @@
         </div>
     </div>
     <div v-if="show_buy_form" class="button_div">
-        <button type="submit">Kup</button>
+        <button :disabled="owned_cash<total" type="submit">Kup</button>
     </div>
     <div v-else class="button_div">
-        <button type="submit">Sprzedaj</button>
+        <button :disabled="owned_coins<form_amount" type="submit">Sprzedaj</button>
     </div>
 </form>
 
@@ -71,7 +71,6 @@ export default {
                 form_amount: this.form_amount,
                 user_id: this.user_id})
                 .then((res) => {
-                    console.log(res.data)
                     this.owned_coins = res.data['amount']
                     this.owned_cash = res.data['cash']
                     document.cookie = "cash=" + res.data['cash']

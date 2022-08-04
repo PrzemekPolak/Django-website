@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'crypt.apps.CryptConfig',
     'api.apps.ApiConfig',
     'rest_framework',
     'corsheaders',

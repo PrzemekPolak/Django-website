@@ -21,7 +21,10 @@
       />
     </div>
   </div>
-  <p v-else>Coins or prices are unavailable.</p>
+  <div v-else>
+    <p>Kryptowaluty albo ceny są niedostępne</p>
+    <button @click="loadExampleData()" type="button">Pobierz przykładowe dane</button>
+  </div>
 
 </template>
 
@@ -52,6 +55,15 @@ export default {
           })
           .then(data => {
              this.list_data = data
+          })
+          .catch(err => {
+             console.log(err)
+          })
+    },
+    loadExampleData() {
+       fetch('http://127.0.0.1:8000/api/fill_db_with_example_data/')
+          .then(response => {
+             return response.json()
           })
           .catch(err => {
              console.log(err)
@@ -102,4 +114,21 @@ body {
     width: 200px;
 }
 
+button {
+    width: 210px;
+    padding: 10px;
+    font-size: 20px;
+    border: ridge;
+    border-top-style: groove;
+    border-right-style: groove;
+    border-color: rgb(79, 70, 70);
+    background: rgb(41, 37, 26);
+    color: white;
+}
+
+button:hover {
+    border-color: rgb(219, 215, 215);
+    background: rgb(59, 57, 53);
+    cursor: pointer;
+}
 </style>

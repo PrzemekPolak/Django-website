@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .serializers import CoinSerializer, User_assetSerializer, Transaction_historySerializer
-from crypt.models import Transaction_history, User_asset, Coin, Coins_daily_data, Coins_data, User_additional_data
+from .models import Transaction_history, User_asset, Coin, Coins_daily_data, Coins_data, User_additional_data
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 import datetime
@@ -23,7 +23,6 @@ def coin_list(request):
         for x in range(len(data)):
             data[x]['current_price'] = cp_data[x]        
         return JsonResponse(data,safe=False)
-
 
 def coin_get_price(request, coin_id, time_range):
     chart_time = Coins_daily_data.get_time(coin_id, time_range)
@@ -45,7 +44,6 @@ def coin_get_price_old(request, coin_id, time_range):
 
 @csrf_exempt
 def user_login(request):
-    # if request.method == "POST":
     data = JSONParser().parse(request)
     username = data['uname']
     password = data['psw']
@@ -165,3 +163,6 @@ class get_user_transactions(viewsets.ModelViewSet):
         user_id = self.kwargs.get('user_id')
         return Transaction_history.objects.filter(user_id=user_id).order_by('-date_time')
 
+def fill_db_with_example_data(request):
+    import load_to_db
+    return JsonResponse({'success': True})

@@ -71,9 +71,6 @@ export default {
             .catch((error) => {
                 console.log(error)
             })
-            // .finally(() => {
-            //     //Perform action in always
-            // });
         },
 
   },
